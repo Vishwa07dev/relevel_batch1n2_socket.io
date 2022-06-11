@@ -53,7 +53,9 @@ io.on('connection', (socket)=>{
      * 
      */
     setTimeout(()=>{
-       socket.send("Sent a message from server after 5 seconds ");
+       //socket.send("Sent a message from server after 5 seconds ");
+       socket.emit('newEvent', {message : "Sent a message from server after 5 seconds "});
+    
     },5000);
 
     socket.on('disconnect', ()=>{
