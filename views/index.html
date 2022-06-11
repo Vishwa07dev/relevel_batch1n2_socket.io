@@ -4,9 +4,7 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             const socket = io();
-            socket.on('newEvent', function(data){
-                document.write(data.message);
-            });
+            socket.emit('clientEvent', 'Hello Server, from client');
         </script>
     </head>
 

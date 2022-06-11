@@ -48,16 +48,9 @@ app.get("/hello", (req, res)=>{
 io.on('connection', (socket)=>{
     console.log('A user is connected to the server');
 
-    /**
-     * Let's send message to the client after 5 seconds of connection
-     * 
-     */
-    setTimeout(()=>{
-       //socket.send("Sent a message from server after 5 seconds ");
-       socket.emit('newEvent', {message : "Sent a message from server after 5 seconds "});
-    
-    },5000);
-
+    socket.on("clientEvent", (data)=>{
+        console.log(data);
+    })
     socket.on('disconnect', ()=>{
         console.log("User is disconnected");
     })
