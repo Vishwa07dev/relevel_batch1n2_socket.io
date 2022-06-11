@@ -20,39 +20,31 @@ app.get("/hello", (req, res)=>{
     res.sendFile(__dirname + "/views/index.html");
 })
 
-/**
- * Types of standard events :
- * 
- * 1. Server side
- *   
- * a. Connect
- * b. Message
- * c. Disconnect
- * d. Reconnect
- * e. Ping
- * f. Join
- * g. Leave
- * 
- * 
- * 2.Clint Side :
- * 
- *  a. connect
- *  b. connect_error
- *  c. connect_timeout
- *  d. reconnect
- */
 
+var clients = 0 ; // This will keep track of the number of clients
 /**
- * Writing code to react when some client connects
+ * Writing code to broadcast messages to all the users
  */
 io.on('connection', (socket)=>{
     console.log('A user is connected to the server');
-
-    socket.on("clientEvent", (data)=>{
-        console.log(data);
-    })
+    clients++;
+    
+    /**
+     * Every time a client joins, let's broadcast the total 
+     * number of clients to all the clients
+     */
+  
+    io.sockets.emit('broadcast', {
+        description : clients + 'clients connected'
+    });
+    
     socket.on('disconnect', ()=>{
         console.log("User is disconnected");
+        clients--;
+        io.sockets.emit('broadcast', {
+            description : clients + 'clients connected'
+        });
+
     })
 })
 
