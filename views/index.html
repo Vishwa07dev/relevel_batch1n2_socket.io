@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head> Hello Students !</head>
-    <body>  </body>
+    <head> 
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+            socket.on('message', function(data){
+                document.write(data);
+            });
+        </script>
+    </head>
+
+    <body> Hello Students ! </body>
 </html>
